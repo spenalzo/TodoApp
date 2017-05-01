@@ -23,16 +23,33 @@ class TodoViewController: UIViewController,
     @IBOutlet weak var TodoSwitch: UISwitch!
     @IBOutlet var TodoGestureRecognizer: UITapGestureRecognizer!
     
+    @IBOutlet weak var TodoSave: UIBarButtonItem!
+    
+    var todo: Todo?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        TodoTextViewDescription.text = ""
-        TodoImageView.image = UIImage(named: "ImageShip")!
-        TodoSwitch.isOn = false
-        
-        let dateTime = DateTime()
-        TodoDayAndTime.text = dateTime.strDateTime
+        // Se ho passato dei dati alla View, allora imposto quelli
+        if let todo = todo {
+            
+            TodoTextField.text = todo.strLabelTitle
+            TodoLabelTitle.text = todo.strLabelTitle
+            TodoTextViewDescription.text = todo.strTextViewDescription
+            TodoDayAndTime.text = todo.strDayAndTimeCompleted
+            TodoImageView.image = todo.imgTodoImageView
+            TodoSwitch.setOn(todo.blnTodoSwitch, animated: true)
+            
+        // Altrimenti uso dei dati di default
+        } else {
+            TodoTextViewDescription.text = ""
+            TodoImageView.image = UIImage(named: "ImageShip")!
+            TodoSwitch.isOn = false
+            
+            let dateTime = DateTime()
+            TodoDayAndTime.text = dateTime.strDateTime
+        }
         
         // Codice per permettere la gestione dell'evento TAP sulla mia immagine
         TodoImageView.addGestureRecognizer(TodoGestureRecognizer)
@@ -140,6 +157,54 @@ class TodoViewController: UIViewController,
         
         // faccio il dismiss del picker
         dismiss(animated: true, completion: nil)
+    }
+    
+    //-----------------------------------------------------------------
+    // Funzioni per la navigazione
+    //-----------------------------------------------------------------
+    
+    // Cancel
+    //
+    @IBAction func TodoCancel(_ sender: Any) {
+        
+        // verifico come sto richiamando il View Controller "Todo"
+        let isInAddMode = presentingViewController is UINavigationController
+        
+        // sto aggiungendo un nuovo Todo
+        if isInAddMode {
+            
+            dismiss(animated: true, completion: nil)
+            
+        // oppure arrivo dalla modifica di un Todo esistente
+        } else if let owningNavigationController = navigationController {
+            
+            // Torno indietro nello stack di navigazione
+            owningNavigationController.popViewController(animated: true)
+        }
+    }
+    
+    // Save
+    //
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        super.prepare(for: segue, sender: sender)
+        
+        // eguiamo il codice seguente solo quando viene premuto il tasto salva, altrimenti usciamo
+        guard let button = sender as? UIBarButtonItem, button === TodoSave else {
+            return
+        }
+        
+        // preparo i dati da salvare
+        let strTitle = TodoLabelTitle.text!
+        let strDescription = TodoTextViewDescription.text!
+        let imgPhoto = TodoImageView.image!
+        let blnComplete = TodoSwitch.isOn
+        let strDateTime = TodoDayAndTime.text!
+        
+        // salvo i dati nell'oggetto "todo"
+        todo = Todo(strLabelTitle: strTitle, strDayAndTimeCompleted: strDateTime,
+                    strTextViewDescription: strDescription,
+                    imgTodoSwitch: imgPhoto, blnTodoSwitch: blnComplete)
     }
     
     //-----------------------------------------------------------------

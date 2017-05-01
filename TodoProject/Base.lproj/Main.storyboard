@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="5X4-EC-JWP">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="jXI-wq-KIe">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Todo Table View Controller-->
+        <!--My Todos =)-->
         <scene sceneID="04F-98-E0e">
             <objects>
                 <tableViewController id="5X4-EC-JWP" customClass="TodoTableViewController" customModule="TodoProject" customModuleProvider="target" sceneMemberID="viewController">
@@ -49,6 +49,7 @@
                                     <outlet property="TodoImageView" destination="eAb-h6-xJW" id="wyl-wn-bpU"/>
                                     <outlet property="TodoLabelDescription" destination="AS1-xo-JMe" id="cbn-kY-stS"/>
                                     <outlet property="TodoLabelTitle" destination="Y0q-kL-nef" id="5hG-Kk-8rh"/>
+                                    <segue destination="BYZ-38-t0r" kind="show" identifier="ShowDetail" id="Asd-xh-LOe"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -57,12 +58,19 @@
                             <outlet property="delegate" destination="5X4-EC-JWP" id="zrT-Eq-Nuo"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="My Todos =)" id="v9c-8k-eS0">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="4Qq-QM-L6E">
+                            <connections>
+                                <segue destination="la9-B6-9by" kind="presentation" identifier="AddItem" id="t0G-be-qVw"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ejm-kM-Nvk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1702" y="-26"/>
+            <point key="canvasLocation" x="-764" y="-26.53673163418291"/>
         </scene>
-        <!--Todo View Controller-->
+        <!--Single Todo-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="TodoViewController" customModule="TodoProject" sceneMemberID="viewController">
@@ -75,7 +83,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="ds7-LO-f9f">
-                                <rect key="frame" x="15" y="35" width="345" height="617"/>
+                                <rect key="frame" x="15" y="79" width="345" height="573"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="0Rm-Ui-gAc">
                                         <rect key="frame" x="0.0" y="0.0" width="345" height="25.5"/>
@@ -110,7 +118,7 @@
                                         </connections>
                                     </textField>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="240" verticalCompressionResistancePriority="700" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="oO6-qH-X3H" userLabel="Todo Text View Description">
-                                        <rect key="frame" x="0.0" y="55.5" width="345" height="270"/>
+                                        <rect key="frame" x="0.0" y="55.5" width="345" height="226"/>
                                         <color key="backgroundColor" red="0.97220506818102082" green="1" blue="0.60342967313075535" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                         <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <constraints>
@@ -121,7 +129,7 @@
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" verticalHuggingPriority="245" translatesAutoresizingMaskIntoConstraints="NO" id="sis-UF-vYn" userLabel="Todo Image View">
-                                        <rect key="frame" x="0.0" y="325.5" width="345" height="260.5"/>
+                                        <rect key="frame" x="0.0" y="281.5" width="345" height="260.5"/>
                                         <color key="backgroundColor" red="0.87451982009999996" green="1" blue="0.88751931910000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <gestureRecognizers/>
                                         <constraints>
@@ -129,7 +137,7 @@
                                         </constraints>
                                     </imageView>
                                     <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="9qk-Ty-iGr">
-                                        <rect key="frame" x="102" y="586" width="141.5" height="31"/>
+                                        <rect key="frame" x="102" y="542" width="141.5" height="31"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Completed?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FTv-7U-Zq5" userLabel="Todo Label Completed?">
                                                 <rect key="frame" x="0.0" y="0.0" width="92.5" height="31"/>
@@ -166,24 +174,77 @@
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="ds7-LO-f9f" secondAttribute="bottom" constant="15" id="tSj-Kp-OLN"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Single Todo" id="DZ0-1Z-m45">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="uHO-ff-Bpv">
+                            <connections>
+                                <action selector="TodoCancel:" destination="BYZ-38-t0r" id="ult-BF-fEA"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="yrX-7w-av5">
+                            <connections>
+                                <segue destination="CbU-4Q-lVh" kind="unwind" unwindAction="unwindToTodoListWithSender:" id="Lxh-6Z-GNj"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="TodoDayAndTime" destination="WP2-fk-92v" id="kFq-mO-ShJ"/>
                         <outlet property="TodoGestureRecognizer" destination="T81-2z-YQM" id="aTE-QM-wsF"/>
                         <outlet property="TodoImageView" destination="sis-UF-vYn" id="WhZ-Ft-Nqr"/>
                         <outlet property="TodoLabelTitle" destination="yIr-dP-gLP" id="qxN-Jl-pXR"/>
+                        <outlet property="TodoSave" destination="yrX-7w-av5" id="coh-UH-yoX"/>
                         <outlet property="TodoSwitch" destination="0xU-j0-Wao" id="Dee-dN-gHw"/>
                         <outlet property="TodoTextField" destination="G9e-fm-Fph" id="HDq-IK-Lce"/>
                         <outlet property="TodoTextViewDescription" destination="oO6-qH-X3H" id="XWN-fD-Pfb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <exit id="CbU-4Q-lVh" userLabel="Exit" sceneMemberID="exit"/>
                 <tapGestureRecognizer id="T81-2z-YQM">
                     <connections>
                         <action selector="selectImageFromPhotoLibrary:" destination="BYZ-38-t0r" id="OJZ-Uz-3fl"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-117.59999999999999" y="-25.637181409295355"/>
+            <point key="canvasLocation" x="1230" y="-27"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="R0H-Gh-taA">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="jXI-wq-KIe" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="wRo-YQ-ZMh">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="5X4-EC-JWP" kind="relationship" relationship="rootViewController" id="hiw-Eh-FXD"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4ik-ID-F1u" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-764" y="-785"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="9an-A4-5JS">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="la9-B6-9by" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Ljc-ar-VRM">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="dlg-qi-NJP"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="apZ-Ue-YmV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="236" y="-592"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="Asd-xh-LOe"/>
+    </inferredMetricsTieBreakers>
 </document>

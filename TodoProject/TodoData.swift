@@ -16,13 +16,29 @@ class Todo {
     var imgTodoImageView: UIImage
     var blnTodoSwitch: Bool
     
+    // Nuovo Todo di "default"
     init (strLabelTitle: String, strTextViewDescription: String) {
         self.strLabelTitle = strLabelTitle
-        self.strTextViewDescription = strTextViewDescription
-        self.blnTodoSwitch = false                              // Attivita' da completare
-        self.imgTodoImageView = UIImage(named: "ImageShip")!    // Immagine di default
         
         let dateTime = DateTime()
         self.strDayAndTimeCompleted = dateTime.strDateTime      // Data e ora attuale
+        
+        self.strTextViewDescription = strTextViewDescription
+        self.imgTodoImageView = UIImage(named: "ImageShip")!    // Immagine di default
+        self.blnTodoSwitch = false                              // Attivita' da completare
+    }
+    
+    // Todo con dati inseriti dall'utente
+    convenience init(strLabelTitle: String,
+                     strDayAndTimeCompleted: String,
+                     strTextViewDescription: String,
+                     imgTodoSwitch: UIImage,
+                     blnTodoSwitch: Bool) {
+        
+        self.init(strLabelTitle: strLabelTitle, strTextViewDescription: strTextViewDescription)
+        
+        self.strDayAndTimeCompleted = strDayAndTimeCompleted
+        self.imgTodoImageView = imgTodoSwitch
+        self.blnTodoSwitch = blnTodoSwitch
     }
 }
