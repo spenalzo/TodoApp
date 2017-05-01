@@ -27,6 +27,8 @@ class TodoViewController: UIViewController,
     
     var todo: Todo?
     
+    @IBOutlet weak var TodoStackViewDetails: UIStackView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -51,10 +53,19 @@ class TodoViewController: UIViewController,
             TodoDayAndTime.text = dateTime.strDateTime
         }
         
+        // In base all'orientamento definisco l'orientamento della StackView centrale
+        if UIDevice.current.orientation.isPortrait  {
+            TodoStackViewDetails.axis = .vertical
+            TodoStackViewDetails.distribution = .fill
+        } else {
+            TodoStackViewDetails.axis = .horizontal
+            TodoStackViewDetails.distribution = .fillEqually
+        }
+        
         // Codice per permettere la gestione dell'evento TAP sulla mia immagine
         TodoImageView.addGestureRecognizer(TodoGestureRecognizer)
         TodoImageView.isUserInteractionEnabled = true;
- 
+        
         // Il Controller "TodoViewController" e' il delegato per la compilazione del titolo del "todo" e del testo esteso
         TodoTextField.delegate = self
         TodoTextViewDescription.delegate = self
@@ -136,6 +147,9 @@ class TodoViewController: UIViewController,
         // Only allow photos to be picked, not taken.
         imagePickerController.sourceType = .photoLibrary
         
+        // Modalita' popover per quando iPhone e' orizzontale
+        imagePickerController.modalPresentationStyle = .popover
+        
         // Make sure ViewController is notified when the user picks an image.
         imagePickerController.delegate = self
         present(imagePickerController, animated: true, completion: nil)
@@ -157,6 +171,23 @@ class TodoViewController: UIViewController,
         
         // faccio il dismiss del picker
         dismiss(animated: true, completion: nil)
+    }
+    
+    //-----------------------------------------------------------------
+    // Funzioni per la visualizzazione decente di testo esteso e
+    // immagine quando ruoto il dispositivo
+    //-----------------------------------------------------------------
+    
+    override func willRotate(to toInterfaceOrientation: UIInterfaceOrientation, duration: TimeInterval) {
+        
+        if toInterfaceOrientation.isPortrait  {
+            TodoStackViewDetails.axis = .vertical
+            TodoStackViewDetails.distribution = .fill
+        } else {
+            TodoStackViewDetails.axis = .horizontal
+            TodoStackViewDetails.distribution = .fillEqually
+        }
+        print("Rotating")
     }
     
     //-----------------------------------------------------------------
