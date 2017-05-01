@@ -17,7 +17,8 @@ class TodoViewController: UIViewController,
     @IBOutlet weak var TodoLabelTitle: UILabel!
     @IBOutlet weak var TodoDayAndTime: UILabel!
     @IBOutlet weak var TodoTextField: UITextField!
-    @IBOutlet weak var TodoTextView: UITextView!
+    @IBOutlet weak var TodoTextViewDescription: UITextView!
+    
     @IBOutlet weak var TodoImageView: UIImageView!
     @IBOutlet weak var TodoSwitch: UISwitch!
     @IBOutlet var TodoGestureRecognizer: UITapGestureRecognizer!
@@ -26,8 +27,12 @@ class TodoViewController: UIViewController,
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        TodoTextView.text = ""
+        TodoTextViewDescription.text = ""
         TodoImageView.image = UIImage(named: "ImageShip")!
+        TodoSwitch.isOn = false
+        
+        let dateTime = DateTime()
+        TodoDayAndTime.text = dateTime.strDateTime
         
         // Codice per permettere la gestione dell'evento TAP sulla mia immagine
         TodoImageView.addGestureRecognizer(TodoGestureRecognizer)
@@ -35,7 +40,7 @@ class TodoViewController: UIViewController,
  
         // Il Controller "TodoViewController" e' il delegato per la compilazione del titolo del "todo" e del testo esteso
         TodoTextField.delegate = self
-        TodoTextView.delegate = self
+        TodoTextViewDescription.delegate = self
     }
 
     //-----------------------------------------------------------------
@@ -54,7 +59,7 @@ class TodoViewController: UIViewController,
         // nasconde la tastiera
         textField.resignFirstResponder()
         // sposta il cursore sul TextView per l'inserimento del testo esteso
-        TodoTextView.becomeFirstResponder()
+        TodoTextViewDescription.becomeFirstResponder()
         return true
     }
     func textFieldDidEndEditing(_ textField: UITextField) {
@@ -82,6 +87,20 @@ class TodoViewController: UIViewController,
     }
     
     //-----------------------------------------------------------------
+    // Funzioni per la gestione dello switch
+    //-----------------------------------------------------------------
+    
+    // Viene chiamata quando l'utente clicca sullo switch di completamento
+    //
+    @IBAction func todoSwitchValueChanged(_ sender: Any) {
+    
+        if TodoSwitch.isOn {
+            let dateTime = DateTime()
+            TodoDayAndTime.text = dateTime.strDateTime
+        }
+    }
+    
+    //-----------------------------------------------------------------
     // Funzioni per la gestione delle immagini
     //-----------------------------------------------------------------
     
@@ -92,7 +111,7 @@ class TodoViewController: UIViewController,
         
         // Mi assicuro che se l'utente clicca la foto mentre è in editing, la tastiera viene nascosta
         TodoTextField.resignFirstResponder()
-        TodoTextView.resignFirstResponder()
+        TodoTextViewDescription.resignFirstResponder()
         
         // UIImagePickerController is a view controller that lets a user pick media from their photo library.
         let imagePickerController = UIImagePickerController()

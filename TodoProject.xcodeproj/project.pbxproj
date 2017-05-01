@@ -14,6 +14,10 @@
 		6B97E0E91EB28FE400C92F2E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6B97E0E81EB28FE400C92F2E /* Assets.xcassets */; };
 		6B97E0EC1EB28FE400C92F2E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6B97E0EA1EB28FE400C92F2E /* LaunchScreen.storyboard */; };
 		6B97E0F71EB28FE400C92F2E /* TodoProjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B97E0F61EB28FE400C92F2E /* TodoProjectTests.swift */; };
+		6B97E1031EB683A000C92F2E /* TodoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B97E1021EB683A000C92F2E /* TodoData.swift */; };
+		6B97E1051EB687D600C92F2E /* DateTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B97E1041EB687D600C92F2E /* DateTime.swift */; };
+		6B97E10D1EB7304100C92F2E /* TodoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B97E10C1EB7304100C92F2E /* TodoTableViewController.swift */; };
+		6B97E10F1EB7306700C92F2E /* TodoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B97E10E1EB7306700C92F2E /* TodoTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +42,10 @@
 		6B97E0F21EB28FE400C92F2E /* TodoProjectTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TodoProjectTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B97E0F61EB28FE400C92F2E /* TodoProjectTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoProjectTests.swift; sourceTree = "<group>"; };
 		6B97E0F81EB28FE400C92F2E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6B97E1021EB683A000C92F2E /* TodoData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoData.swift; sourceTree = "<group>"; };
+		6B97E1041EB687D600C92F2E /* DateTime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTime.swift; sourceTree = "<group>"; };
+		6B97E10C1EB7304100C92F2E /* TodoTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoTableViewController.swift; sourceTree = "<group>"; };
+		6B97E10E1EB7306700C92F2E /* TodoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +87,7 @@
 		6B97E0DD1EB28FE400C92F2E /* TodoProject */ = {
 			isa = PBXGroup;
 			children = (
+				6B97E1011EB6835400C92F2E /* Model */,
 				6B97E0DE1EB28FE400C92F2E /* AppDelegate.swift */,
 				6B97E0E01EB28FE400C92F2E /* TodoViewController.swift */,
 				6B97E0E21EB28FE400C92F2E /* Main.storyboard */,
@@ -86,6 +95,8 @@
 				6B97E0EA1EB28FE400C92F2E /* LaunchScreen.storyboard */,
 				6B97E0ED1EB28FE400C92F2E /* Info.plist */,
 				6B97E0E51EB28FE400C92F2E /* TodoProject.xcdatamodeld */,
+				6B97E10E1EB7306700C92F2E /* TodoTableViewCell.swift */,
+				6B97E10C1EB7304100C92F2E /* TodoTableViewController.swift */,
 			);
 			path = TodoProject;
 			sourceTree = "<group>";
@@ -97,6 +108,15 @@
 				6B97E0F81EB28FE400C92F2E /* Info.plist */,
 			);
 			path = TodoProjectTests;
+			sourceTree = "<group>";
+		};
+		6B97E1011EB6835400C92F2E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6B97E1021EB683A000C92F2E /* TodoData.swift */,
+				6B97E1041EB687D600C92F2E /* DateTime.swift */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -203,6 +223,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				6B97E0E11EB28FE400C92F2E /* TodoViewController.swift in Sources */,
+				6B97E10F1EB7306700C92F2E /* TodoTableViewCell.swift in Sources */,
+				6B97E1031EB683A000C92F2E /* TodoData.swift in Sources */,
+				6B97E1051EB687D600C92F2E /* DateTime.swift in Sources */,
+				6B97E10D1EB7304100C92F2E /* TodoTableViewController.swift in Sources */,
 				6B97E0E71EB28FE400C92F2E /* TodoProject.xcdatamodeld in Sources */,
 				6B97E0DF1EB28FE400C92F2E /* AppDelegate.swift in Sources */,
 			);
@@ -410,6 +434,7 @@
 				6B97E0FD1EB28FE400C92F2E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6B97E0FE1EB28FE400C92F2E /* Build configuration list for PBXNativeTarget "TodoProjectTests" */ = {
 			isa = XCConfigurationList;
@@ -418,6 +443,7 @@
 				6B97E1001EB28FE400C92F2E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

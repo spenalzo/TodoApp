@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="5X4-EC-JWP">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -9,6 +9,59 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Todo Table View Controller-->
+        <scene sceneID="04F-98-E0e">
+            <objects>
+                <tableViewController id="5X4-EC-JWP" customClass="TodoTableViewController" customModule="TodoProject" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" sectionHeaderHeight="28" sectionFooterHeight="28" id="tSc-v6-yuL">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TodoTableViewCell" rowHeight="90" id="TC7-ER-59f" customClass="TodoTableViewCell" customModule="TodoProject" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="90"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="TC7-ER-59f" id="EEK-2N-bzA">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="89.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eAb-h6-xJW" userLabel="Todo Image View">
+                                            <rect key="frame" x="8" y="0.0" width="89" height="89"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AS1-xo-JMe" userLabel="Todo Label Description">
+                                            <rect key="frame" x="105" y="32" width="262" height="58"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="New Todo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y0q-kL-nef" userLabel="Todo Label Title">
+                                            <rect key="frame" x="105" y="0.0" width="262" height="24"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                            <color key="textColor" red="1" green="0.1019535593" blue="0.15319650239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="TodoImageView" destination="eAb-h6-xJW" id="wyl-wn-bpU"/>
+                                    <outlet property="TodoLabelDescription" destination="AS1-xo-JMe" id="cbn-kY-stS"/>
+                                    <outlet property="TodoLabelTitle" destination="Y0q-kL-nef" id="5hG-Kk-8rh"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="5X4-EC-JWP" id="xhR-YC-Cti"/>
+                            <outlet property="delegate" destination="5X4-EC-JWP" id="zrT-Eq-Nuo"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ejm-kM-Nvk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1702" y="-26"/>
+        </scene>
         <!--Todo View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -56,9 +109,10 @@
                                             <action selector="editingChangedTodoTextField:" destination="BYZ-38-t0r" eventType="editingChanged" id="Uri-Ib-Clg"/>
                                         </connections>
                                     </textField>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="240" verticalCompressionResistancePriority="700" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="oO6-qH-X3H" userLabel="Todo Text View">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="240" verticalCompressionResistancePriority="700" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="oO6-qH-X3H" userLabel="Todo Text View Description">
                                         <rect key="frame" x="0.0" y="55.5" width="345" height="270"/>
-                                        <color key="backgroundColor" red="0.58289484449999995" green="1" blue="0.54661607649999999" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="0.97220506818102082" green="1" blue="0.60342967313075535" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="200" id="kjF-eT-7tk"/>
                                         </constraints>
@@ -71,7 +125,7 @@
                                         <color key="backgroundColor" red="0.87451982009999996" green="1" blue="0.88751931910000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <gestureRecognizers/>
                                         <constraints>
-                                            <constraint firstAttribute="height" priority="700" constant="170" id="oB1-m7-OwP"/>
+                                            <constraint firstAttribute="height" priority="700" constant="180" id="oB1-m7-OwP"/>
                                         </constraints>
                                     </imageView>
                                     <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="9qk-Ty-iGr">
@@ -85,6 +139,9 @@
                                             </label>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0xU-j0-Wao" userLabel="Todo Switch">
                                                 <rect key="frame" x="92.5" y="0.0" width="51" height="31"/>
+                                                <connections>
+                                                    <action selector="todoSwitchValueChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="kGa-hM-29z"/>
+                                                </connections>
                                             </switch>
                                         </subviews>
                                     </stackView>
@@ -116,7 +173,7 @@
                         <outlet property="TodoLabelTitle" destination="yIr-dP-gLP" id="qxN-Jl-pXR"/>
                         <outlet property="TodoSwitch" destination="0xU-j0-Wao" id="Dee-dN-gHw"/>
                         <outlet property="TodoTextField" destination="G9e-fm-Fph" id="HDq-IK-Lce"/>
-                        <outlet property="TodoTextView" destination="oO6-qH-X3H" id="scr-Gk-fzo"/>
+                        <outlet property="TodoTextViewDescription" destination="oO6-qH-X3H" id="XWN-fD-Pfb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
