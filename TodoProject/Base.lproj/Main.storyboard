@@ -58,7 +58,7 @@
                             <outlet property="delegate" destination="5X4-EC-JWP" id="zrT-Eq-Nuo"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="My Todos =)" id="v9c-8k-eS0">
+                    <navigationItem key="navigationItem" title="My Todos =)" id="v9c-8k-eS0" customClass="todoTableViewController" customModule="TodoProject">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="4Qq-QM-L6E">
                             <connections>
                                 <segue destination="la9-B6-9by" kind="presentation" identifier="AddItem" id="t0G-be-qVw"/>

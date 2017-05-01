@@ -59,7 +59,7 @@ class TodoViewController: UIViewController,
         TodoTextField.delegate = self
         TodoTextViewDescription.delegate = self
     }
-
+    
     //-----------------------------------------------------------------
     // Funzioni per la gestione del titolo
     //-----------------------------------------------------------------

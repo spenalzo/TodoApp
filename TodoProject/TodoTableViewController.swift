@@ -14,7 +14,14 @@ class TodoTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        caricaEsempi ()
+        
+        // Provo a caricare eventuali dati salvati
+        loadTodos()
+        
+        // Se non ho dati salvati, allora carico gli esempi di partenza
+        if todos.count == 0 {
+            caricaEsempi ()
+        }
         
         // Non metto il bottone nell'editor grafico ma lo creo qui,
         // di default e poi faccio l'override del suo comportamento in:
@@ -126,8 +133,11 @@ class TodoTableViewController: UITableViewController {
                 // Aggiunta di una nuova cella
                 tableView.insertRows(at: [newIndexPath], with: .automatic)
             }
+            
+            // Salvataggio dei dati todos (eventualmente spostabile in AppDelegate
+            // alla chiusura dell'app)
+            saveTodos()
         }
-        
     }
 
     /*
@@ -211,6 +221,39 @@ class TodoTableViewController: UITableViewController {
         default:
             print("Ho dimenticato di gestire un identificativo in 'TodoTableViewController' > 'prepare'")
         }
-
+    }
+    
+    //-----------------------------------------------------------------
+    // Funzioni per il salvataggio e il caricamento dei dati
+    //-----------------------------------------------------------------
+    
+    // Save (richiamata da "AppDelegate")
+    //
+    private func saveTodos() {
+        
+        // salvo l'intero array, non c'e' bisogno di utilizzare cicli
+        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(todos, toFile: Todo.ArchiveURL.path)
+        
+        if isSuccessfulSave {
+            print("Todos successfully saved.")
+        } else {
+            print("Failed to save Todos!")
+        }
+    }
+    
+    // Load
+    //
+    private func loadTodos() {
+        let todos = NSKeyedUnarchiver.unarchiveObject(withFile: Todo.ArchiveURL.path) as? [Todo]
+        
+        if let todos = todos {
+            self.todos = todos
+        }
+    }
+    
+    // Passaggio dati all'esterno (AppDelegate) per il salvataggio
+    //
+    public func getTodos() -> [Todo]? {
+        return todos
     }
 }
