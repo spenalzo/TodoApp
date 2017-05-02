@@ -10,16 +10,14 @@ import UIKit
 
 class TodoTableViewController: UITableViewController {
 
-    var todos = [Todo]()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Provo a caricare eventuali dati salvati
-        loadTodos()
+        TodosManager.sharedInstance.loadTodos()
         
         // Se non ho dati salvati, allora carico gli esempi di partenza
-        if todos.count == 0 {
+        if TodosManager.sharedInstance.todos.count == 0 {
             caricaEsempi ()
         }
         
@@ -44,8 +42,7 @@ class TodoTableViewController: UITableViewController {
         let todo2 = Todo(strLabelTitle: "Todo 2", strTextViewDescription: "Descrizione 2")
         let todo3 = Todo(strLabelTitle: "Todo 3", strTextViewDescription: "Descrizione 3")
         
-        todos += [todo1, todo2, todo3]
-        print(todos[2])
+        TodosManager.sharedInstance.todos += [todo1, todo2, todo3]
     }
     
     override func didReceiveMemoryWarning() {
@@ -70,7 +67,7 @@ class TodoTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return todos.count
+        return TodosManager.sharedInstance.todos.count
     }
 
     //-------------------------------------------------------------------------------
@@ -87,7 +84,7 @@ class TodoTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TodoTableViewCell", for: indexPath) as! TodoTableViewCell
         
         // Mi serve il todo della stessa posizione indicata da indexPath
-        let todo = todos[indexPath.row]
+        let todo = TodosManager.sharedInstance.todos[indexPath.row]
         
         // Configure the cell... Assegno i valori che mi interessano
         cell.TodoLabelTitle.text = todo.strLabelTitle
@@ -115,7 +112,7 @@ class TodoTableViewController: UITableViewController {
                 print("Aggiornamento cella / riga")
                 
                 // Aggiornamento dati di una cella che e' stata cliccata
-                todos[selectedIndexPath.row] = todo
+                TodosManager.sharedInstance.todos[selectedIndexPath.row] = todo
                 
                 // Aggiornamento visualizzazione della cella
                 tableView.reloadRows(at: [selectedIndexPath], with: .none)
@@ -125,18 +122,14 @@ class TodoTableViewController: UITableViewController {
                 
                 print("Nuova cella / riga")
                 
-                let newIndexPath = IndexPath(row: todos.count, section: 0)
+                let newIndexPath = IndexPath(row: TodosManager.sharedInstance.todos.count, section: 0)
                 
                 // Aggiunta dei dati in fondo all'array "todos"
-                todos.append(todo)
+                TodosManager.sharedInstance.todos.append(todo)
                 
                 // Aggiunta di una nuova cella
                 tableView.insertRows(at: [newIndexPath], with: .automatic)
             }
-            
-            // Salvataggio dei dati todos (eventualmente spostabile in AppDelegate
-            // alla chiusura dell'app)
-            saveTodos()
         }
     }
 
@@ -159,7 +152,7 @@ class TodoTableViewController: UITableViewController {
         if editingStyle == .delete {
             
             // Devo eliminare anche l'oggetto cancellato dal mio array oltre che dalla tabella
-            todos.remove(at: indexPath.row)
+            TodosManager.sharedInstance.todos.remove(at: indexPath.row)
             
             // Delete the row from the data source
             tableView.deleteRows(at: [indexPath], with: .fade)
@@ -210,7 +203,7 @@ class TodoTableViewController: UITableViewController {
             let indexPath = tableView.indexPath(for: selectedTodoCell)
             
             // estraggo l'oggetto dall'array dei todos
-            let selectedTodo = todos[indexPath!.row]
+            let selectedTodo = TodosManager.sharedInstance.todos[indexPath!.row]
             
             // identifico il controller di destinazione
             let todoController = segue.destination as? TodoViewController
@@ -221,39 +214,5 @@ class TodoTableViewController: UITableViewController {
         default:
             print("Ho dimenticato di gestire un identificativo in 'TodoTableViewController' > 'prepare'")
         }
-    }
-    
-    //-----------------------------------------------------------------
-    // Funzioni per il salvataggio e il caricamento dei dati
-    //-----------------------------------------------------------------
-    
-    // Save (richiamata da "AppDelegate")
-    //
-    private func saveTodos() {
-        
-        // salvo l'intero array, non c'e' bisogno di utilizzare cicli
-        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(todos, toFile: Todo.ArchiveURL.path)
-        
-        if isSuccessfulSave {
-            print("Todos successfully saved.")
-        } else {
-            print("Failed to save Todos!")
-        }
-    }
-    
-    // Load
-    //
-    private func loadTodos() {
-        let todos = NSKeyedUnarchiver.unarchiveObject(withFile: Todo.ArchiveURL.path) as? [Todo]
-        
-        if let todos = todos {
-            self.todos = todos
-        }
-    }
-    
-    // Passaggio dati all'esterno (AppDelegate) per il salvataggio
-    //
-    public func getTodos() -> [Todo]? {
-        return todos
     }
 }

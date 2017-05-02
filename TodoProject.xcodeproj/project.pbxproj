@@ -18,6 +18,7 @@
 		6B97E1051EB687D600C92F2E /* DateTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B97E1041EB687D600C92F2E /* DateTime.swift */; };
 		6B97E10D1EB7304100C92F2E /* TodoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B97E10C1EB7304100C92F2E /* TodoTableViewController.swift */; };
 		6B97E10F1EB7306700C92F2E /* TodoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B97E10E1EB7306700C92F2E /* TodoTableViewCell.swift */; };
+		6B97E1111EB8E11500C92F2E /* TodosManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B97E1101EB8E11500C92F2E /* TodosManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,7 @@
 		6B97E1041EB687D600C92F2E /* DateTime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTime.swift; sourceTree = "<group>"; };
 		6B97E10C1EB7304100C92F2E /* TodoTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoTableViewController.swift; sourceTree = "<group>"; };
 		6B97E10E1EB7306700C92F2E /* TodoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoTableViewCell.swift; sourceTree = "<group>"; };
+		6B97E1101EB8E11500C92F2E /* TodosManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodosManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +117,7 @@
 			children = (
 				6B97E1021EB683A000C92F2E /* TodoData.swift */,
 				6B97E1041EB687D600C92F2E /* DateTime.swift */,
+				6B97E1101EB8E11500C92F2E /* TodosManager.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -223,6 +226,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6B97E0E11EB28FE400C92F2E /* TodoViewController.swift in Sources */,
+				6B97E1111EB8E11500C92F2E /* TodosManager.swift in Sources */,
 				6B97E10F1EB7306700C92F2E /* TodoTableViewCell.swift in Sources */,
 				6B97E1031EB683A000C92F2E /* TodoData.swift in Sources */,
 				6B97E1051EB687D600C92F2E /* DateTime.swift in Sources */,

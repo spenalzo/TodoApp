@@ -25,9 +25,9 @@ class TodoViewController: UIViewController,
     
     @IBOutlet weak var TodoSave: UIBarButtonItem!
     
-    var todo: Todo?
-    
     @IBOutlet weak var TodoStackViewDetails: UIStackView!
+    
+    var todo: Todo?
     
     override func viewDidLoad() {
         super.viewDidLoad()
