@@ -89,16 +89,15 @@
 		6B97E0DD1EB28FE400C92F2E /* TodoProject */ = {
 			isa = PBXGroup;
 			children = (
+				6BB05A501EB920460071757B /* Display */,
 				6B97E1011EB6835400C92F2E /* Model */,
 				6B97E0DE1EB28FE400C92F2E /* AppDelegate.swift */,
-				6B97E0E01EB28FE400C92F2E /* TodoViewController.swift */,
 				6B97E0E21EB28FE400C92F2E /* Main.storyboard */,
 				6B97E0E81EB28FE400C92F2E /* Assets.xcassets */,
 				6B97E0EA1EB28FE400C92F2E /* LaunchScreen.storyboard */,
 				6B97E0ED1EB28FE400C92F2E /* Info.plist */,
 				6B97E0E51EB28FE400C92F2E /* TodoProject.xcdatamodeld */,
 				6B97E10E1EB7306700C92F2E /* TodoTableViewCell.swift */,
-				6B97E10C1EB7304100C92F2E /* TodoTableViewController.swift */,
 			);
 			path = TodoProject;
 			sourceTree = "<group>";
@@ -120,6 +119,15 @@
 				6B97E1101EB8E11500C92F2E /* TodosManager.swift */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		6BB05A501EB920460071757B /* Display */ = {
+			isa = PBXGroup;
+			children = (
+				6B97E0E01EB28FE400C92F2E /* TodoViewController.swift */,
+				6B97E10C1EB7304100C92F2E /* TodoTableViewController.swift */,
+			);
+			name = Display;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

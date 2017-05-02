@@ -18,7 +18,7 @@ class TodoTableViewController: UITableViewController {
         
         // Se non ho dati salvati, allora carico gli esempi di partenza
         if TodosManager.sharedInstance.todos.count == 0 {
-            caricaEsempi ()
+            TodosManager.sharedInstance.loadExamples ()
         }
         
         // Non metto il bottone nell'editor grafico ma lo creo qui,
@@ -31,18 +31,6 @@ class TodoTableViewController: UITableViewController {
         
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-    }
-    
-    //-----------------------------------------------------------------
-    // Funzioni provvisorie per debug
-    //-----------------------------------------------------------------
-    
-    private func caricaEsempi () {
-        let todo1 = Todo(strLabelTitle: "Todo 1", strTextViewDescription: "Descrizione 1")
-        let todo2 = Todo(strLabelTitle: "Todo 2", strTextViewDescription: "Descrizione 2")
-        let todo3 = Todo(strLabelTitle: "Todo 3", strTextViewDescription: "Descrizione 3")
-        
-        TodosManager.sharedInstance.todos += [todo1, todo2, todo3]
     }
     
     override func didReceiveMemoryWarning() {
@@ -112,7 +100,7 @@ class TodoTableViewController: UITableViewController {
                 print("Aggiornamento cella / riga")
                 
                 // Aggiornamento dati di una cella che e' stata cliccata
-                TodosManager.sharedInstance.todos[selectedIndexPath.row] = todo
+                TodosManager.sharedInstance.updateTodo(todo: todo, intPosition: selectedIndexPath.row)
                 
                 // Aggiornamento visualizzazione della cella
                 tableView.reloadRows(at: [selectedIndexPath], with: .none)
@@ -125,7 +113,7 @@ class TodoTableViewController: UITableViewController {
                 let newIndexPath = IndexPath(row: TodosManager.sharedInstance.todos.count, section: 0)
                 
                 // Aggiunta dei dati in fondo all'array "todos"
-                TodosManager.sharedInstance.todos.append(todo)
+                TodosManager.sharedInstance.addTodo(todo: todo)
                 
                 // Aggiunta di una nuova cella
                 tableView.insertRows(at: [newIndexPath], with: .automatic)
@@ -152,7 +140,7 @@ class TodoTableViewController: UITableViewController {
         if editingStyle == .delete {
             
             // Devo eliminare anche l'oggetto cancellato dal mio array oltre che dalla tabella
-            TodosManager.sharedInstance.todos.remove(at: indexPath.row)
+            TodosManager.sharedInstance.removeTodo(intPosition: indexPath.row)
             
             // Delete the row from the data source
             tableView.deleteRows(at: [indexPath], with: .fade)
