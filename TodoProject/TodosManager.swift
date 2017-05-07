@@ -11,7 +11,8 @@ import Foundation
 class TodosManager {
     static let sharedInstance = TodosManager()
     
-    var todos = [Todo]()
+    var todos = [Todo]()            // Todo da evadere
+    var completedTodos = [Todo]()   // Todo completati
     
     //-----------------------------------------------------------------
     // Funzioni per il salvataggio e il caricamento dei dati
@@ -93,5 +94,10 @@ class TodosManager {
         let todo3 = Todo(strLabelTitle: "Todo 3", strTextViewDescription: "Descrizione 3")
         
         self.todos += [todo1, todo2, todo3]
+        
+        let todo4 = Todo(strLabelTitle: "Todo 4", strTextViewDescription: "Descrizione 4")
+        todo4.blnTodoSwitch = true
+        
+        self.completedTodos += [todo4]
     }
 }

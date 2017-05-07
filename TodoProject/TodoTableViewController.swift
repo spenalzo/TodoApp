@@ -78,7 +78,13 @@ class TodoTableViewController: UITableViewController {
         cell.TodoLabelTitle.text = todo.strLabelTitle
         cell.TodoLabelDescription.text = todo.strTextViewDescription
         cell.TodoImageView.image = todo.imgTodoImageView
-
+        
+        if todo.blnTodoSwitch {
+            cell.TodoLabelTitle.textColor = todo.colTodoGreen
+        } else {
+            cell.TodoLabelTitle.textColor = todo.colTodoRed
+        }
+    
         return cell
     }
     
@@ -104,7 +110,6 @@ class TodoTableViewController: UITableViewController {
                 
                 // Aggiornamento visualizzazione della cella
                 tableView.reloadRows(at: [selectedIndexPath], with: .none)
-            
             // Aggiunta
             } else {
                 
@@ -144,6 +149,7 @@ class TodoTableViewController: UITableViewController {
             
             // Delete the row from the data source
             tableView.deleteRows(at: [indexPath], with: .fade)
+            
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    

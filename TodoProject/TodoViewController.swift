@@ -42,18 +42,24 @@ class TodoViewController: UIViewController,
             TodoDayAndTime.text = todo.strDayAndTimeCompleted
             TodoImageView.image = todo.imgTodoImageView
             TodoSwitch.setOn(todo.blnTodoSwitch, animated: true)
+            if todo.blnTodoSwitch {
+                TodoLabelTitle.textColor = todo.colTodoGreen
+            } else {
+                TodoLabelTitle.textColor = todo.colTodoRed
+            }
             
         // Altrimenti uso dei dati di default
         } else {
             TodoTextViewDescription.text = ""
             TodoImageView.image = UIImage(named: "ImageShip")!
             TodoSwitch.isOn = false
+            TodoLabelTitle.textColor = UIColor.red
             
             let dateTime = DateTime()
             TodoDayAndTime.text = dateTime.strDateTime
         }
         
-        // In base all'orientamento definisco l'orientamento della StackView centrale
+        // In base all'orientamento del dispositivo definisco quello della StackView centrale
         if UIDevice.current.orientation.isPortrait  {
             TodoStackViewDetails.axis = .vertical
             TodoStackViewDetails.distribution = .fill
@@ -125,6 +131,9 @@ class TodoViewController: UIViewController,
         if TodoSwitch.isOn {
             let dateTime = DateTime()
             TodoDayAndTime.text = dateTime.strDateTime
+            TodoLabelTitle.textColor = todo?.colTodoGreen
+        } else {
+            TodoLabelTitle.textColor = todo?.colTodoRed
         }
     }
     
@@ -228,7 +237,7 @@ class TodoViewController: UIViewController,
         // preparo i dati da salvare
         let strTitle = TodoLabelTitle.text!
         let strDescription = TodoTextViewDescription.text!
-        let imgPhoto = TodoImageView.image!
+        let imgPhoto = TodoImageView.image
         let blnComplete = TodoSwitch.isOn
         let strDateTime = TodoDayAndTime.text!
         

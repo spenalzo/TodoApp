@@ -13,8 +13,11 @@ class Todo: NSObject, NSCoding {
     var strLabelTitle: String
     var strDayAndTimeCompleted: String
     var strTextViewDescription: String
-    var imgTodoImageView: UIImage
+    var imgTodoImageView: UIImage?
     var blnTodoSwitch: Bool
+    
+    let colTodoGreen: UIColor = UIColor.init(red: 0.04, green: 0.68, blue: 0.02, alpha: 1)
+    let colTodoRed: UIColor = UIColor.init(red: 1, green: 0.02, blue: 0.02, alpha: 1)
     
     // Posizione per il salvataggio dei dati
     //
@@ -39,7 +42,7 @@ class Todo: NSObject, NSCoding {
     convenience init(strLabelTitle: String,
                      strDayAndTimeCompleted: String,
                      strTextViewDescription: String,
-                     imgTodoSwitch: UIImage,
+                     imgTodoSwitch: UIImage?,
                      blnTodoSwitch: Bool) {
         
         self.init(strLabelTitle: strLabelTitle, strTextViewDescription: strTextViewDescription)
@@ -48,7 +51,7 @@ class Todo: NSObject, NSCoding {
         self.imgTodoImageView = imgTodoSwitch
         self.blnTodoSwitch = blnTodoSwitch
     }
-    
+
     // Todo salvato precedentemente
     //
     required convenience init?(coder aDecoder: NSCoder) {
@@ -57,7 +60,7 @@ class Todo: NSObject, NSCoding {
         let strTitle = aDecoder.decodeObject(forKey: PropertyKey.strLabelTitle) as! String
         let strDayTime = aDecoder.decodeObject(forKey: PropertyKey.strDayAndTimeCompleted) as! String
         let strDescription = aDecoder.decodeObject(forKey: PropertyKey.strTextViewDescription) as! String
-        let imgImageView = aDecoder.decodeObject(forKey: PropertyKey.imgTodoImageView) as! UIImage
+        let imgImageView = aDecoder.decodeObject(forKey: PropertyKey.imgTodoImageView) as? UIImage
         let blnSwitch = aDecoder.decodeBool(forKey: PropertyKey.blnTodoSwitch)
         
         // salvo i dati nell'oggetto "todo"

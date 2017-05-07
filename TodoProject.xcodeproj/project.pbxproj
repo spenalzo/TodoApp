@@ -180,6 +180,7 @@
 				TargetAttributes = {
 					6B97E0DA1EB28FE400C92F2E = {
 						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = 7BBFZFH78T;
 						ProvisioningStyle = Automatic;
 					};
 					6B97E0F11EB28FE400C92F2E = {
@@ -379,7 +380,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 7BBFZFH78T;
 				INFOPLIST_FILE = TodoProject/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = dsoft.TodoProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -391,7 +394,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 7BBFZFH78T;
 				INFOPLIST_FILE = TodoProject/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = dsoft.TodoProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
