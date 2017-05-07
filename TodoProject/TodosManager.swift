@@ -23,9 +23,10 @@ class TodosManager {
     func saveTodos() {
         
         // salvo l'intero array, non c'e' bisogno di utilizzare cicli
-        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(self.todos, toFile: Todo.ArchiveURL.path)
+        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(self.todos, toFile: Todo.ArchiveURLtodos.path)
+        let isSuccessfulSaveCompleted = NSKeyedArchiver.archiveRootObject(self.completedTodos, toFile: Todo.ArchiveURLcompletedTodos.path)
         
-        if isSuccessfulSave {
+        if isSuccessfulSave && isSuccessfulSaveCompleted {
             print("Todos successfully saved.")
         } else {
             print("Failed to save Todos!")
@@ -35,12 +36,20 @@ class TodosManager {
     // Load
     //
     func loadTodos() {
-        let todos = NSKeyedUnarchiver.unarchiveObject(withFile: Todo.ArchiveURL.path) as? [Todo]
+        let todos = NSKeyedUnarchiver.unarchiveObject(withFile: Todo.ArchiveURLtodos.path) as? [Todo]
         
         // In pratica se a todos riesco ad assegnare todos, allora non e' nullo e ho gia' fatto l'unwrapping
         //
         if let todos = todos {
             self.todos = todos
+        }
+        
+        let completedTodos = NSKeyedUnarchiver.unarchiveObject(withFile: Todo.ArchiveURLcompletedTodos.path) as? [Todo]
+        
+        // In pratica se a todos riesco ad assegnare todos, allora non e' nullo e ho gia' fatto l'unwrapping
+        //
+        if let completedTodos = completedTodos {
+            self.completedTodos = completedTodos
         }
         
         // Codice alternativo che fa la stessa cosa
@@ -57,16 +66,27 @@ class TodosManager {
     // Add
     //
     func addTodo(todo: Todo) {
-        self.todos.append(todo)
+        if !todo.blnTodoSwitch {
+            self.todos.append(todo)
+        } else {
+            self.completedTodos.append(todo)
+        }
     }
     
     // Remove
     //
-    func removeTodo(intPosition: Int) {
+    func removeTodo(blnCompleted: Bool, intPosition: Int) {
         
+        // Numero di elementi dell'array utilizzato
+        let intCount = !blnCompleted ? todos.count : completedTodos.count
+
         // Verifico la posizione nell'array
-        if intPosition >= 0, intPosition < todos.count {
-            self.todos.remove(at: intPosition)
+        if intPosition >= 0, intPosition < intCount {
+            if !blnCompleted {
+                self.todos.remove(at: intPosition)
+            } else {
+                self.completedTodos.remove(at: intPosition)
+            }
         } else {
             print("Errore passaggio parametri in removeTodo")
         }
@@ -74,16 +94,61 @@ class TodosManager {
     
     // Update
     //
-    func updateTodo(todo: Todo, intPosition: Int) {
+    func updateTodo(todo: Todo, indexPath: IndexPath) -> Bool {
+    
+        // Sezione di orgine del todo che ho iniziato a modificare
+        let intSectionOrigin = indexPath.section
+        let intPositionOrigin = indexPath.row
         
-        // Verifico la posizione nell'array
-        if intPosition >= 0, intPosition < todos.count {
-            self.todos[intPosition] = todo
+        var intPositionDestination = 0
+        let boolInt = BoolInt()
+        
+        // Se il Todo e' rimasto nella sezione dov'era lo aggiorno
+        if intSectionOrigin == boolInt.intValue(blnValue: todo.blnTodoSwitch) {
+            intPositionDestination = indexPath.row
+            
+            if !todo.blnTodoSwitch {
+                self.todos[intPositionDestination] = todo
+            } else {
+                self.completedTodos[intPositionDestination] = todo
+            }
+            return true
+            
+        // Altrimenti lo sposto nell'altro array
         } else {
-            print("Errore passaggio parametri in addTodo")
+            
+            self.removeTodo(blnCompleted: boolInt.blnValue(intValue: intSectionOrigin), intPosition: intPositionOrigin)
+            self.addTodo(todo: todo)
+            
+            return false
         }
     }
     
+    //-----------------------------------------------------------------
+    // Funzioni in base allo stato di completamento dei Todo
+    //-----------------------------------------------------------------
+    
+    func getCount(todo: Todo) -> Int {
+        
+        if !todo.blnTodoSwitch {
+            return TodosManager.sharedInstance.todos.count
+        } else {
+            return TodosManager.sharedInstance.completedTodos.count
+        }
+    }
+    
+    func getTodo(indexPath: IndexPath) -> Todo? {
+        
+        // Mi serve il todo della stessa posizione indicata da indexPath
+        switch indexPath.section {
+        case 0:
+            return TodosManager.sharedInstance.todos[indexPath.row]
+        case 1:
+            return TodosManager.sharedInstance.completedTodos[indexPath.row]
+        default: break
+        }
+        return nil
+    }
     //-----------------------------------------------------------------
     // Funzione per caricamento dati iniziale
     //-----------------------------------------------------------------

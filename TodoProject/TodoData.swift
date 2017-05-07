@@ -22,7 +22,8 @@ class Todo: NSObject, NSCoding {
     // Posizione per il salvataggio dei dati
     //
     static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
-    static let ArchiveURL = DocumentsDirectory.appendingPathComponent("todos")
+    static let ArchiveURLtodos = DocumentsDirectory.appendingPathComponent("todos")
+    static let ArchiveURLcompletedTodos = DocumentsDirectory.appendingPathComponent("completedTodos")
     
     // Nuovo Todo di "default"
     //

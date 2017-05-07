@@ -8,6 +8,8 @@
 
 import UIKit
 
+// Estensioni
+
 class TodoTableViewController: UITableViewController {
 
     override func viewDidLoad() {
@@ -39,13 +41,13 @@ class TodoTableViewController: UITableViewController {
     }
 
     //-------------------------------------------------------------------------------
-    // Funzione di default della classe COCOA, modificare "return 0" in "return 1"
+    // Funzione di default della classe COCOA, modificare "return 0" in "return n"
     // Si tratta del numero di sezioni della TableView (una sola, per ora)
     //-------------------------------------------------------------------------------
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return 2
     }
 
     //-------------------------------------------------------------------------------
@@ -55,12 +57,34 @@ class TodoTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return TodosManager.sharedInstance.todos.count
+        
+        var rowCount = 0
+        if section == 0 {
+            // Todo ancora da completare
+            rowCount = TodosManager.sharedInstance.todos.count
+        }
+        if section == 1 {
+            // Todo completati
+            rowCount = TodosManager.sharedInstance.completedTodos.count
+        }
+        return rowCount
     }
 
     //-------------------------------------------------------------------------------
+    // Funzione per impostare i nomi delle 2 section
+    //-------------------------------------------------------------------------------
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 0 {
+            return "To do"
+        } else {
+            return "Completed"
+        }
+    }
+    
+    //-------------------------------------------------------------------------------
     // Funzione per aggiornare le celle della TableView in base al
-    // contenuto dell'array todos
+    // contenuto dell'array todos o completedTodos
     // E' una funzione di default della classe COCOA, da scommentare e modificare
     //-------------------------------------------------------------------------------
     
@@ -72,7 +96,7 @@ class TodoTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TodoTableViewCell", for: indexPath) as! TodoTableViewCell
         
         // Mi serve il todo della stessa posizione indicata da indexPath
-        let todo = TodosManager.sharedInstance.todos[indexPath.row]
+        let todo = TodosManager.sharedInstance.getTodo(indexPath: indexPath)!
         
         // Configure the cell... Assegno i valori che mi interessano
         cell.TodoLabelTitle.text = todo.strLabelTitle
@@ -105,17 +129,26 @@ class TodoTableViewController: UITableViewController {
                 
                 print("Aggiornamento cella / riga")
                 
-                // Aggiornamento dati di una cella che e' stata cliccata
-                TodosManager.sharedInstance.updateTodo(todo: todo, intPosition: selectedIndexPath.row)
-                
-                // Aggiornamento visualizzazione della cella
-                tableView.reloadRows(at: [selectedIndexPath], with: .none)
+                // Aggiorno i miei array di Todo
+                if TodosManager.sharedInstance.updateTodo(todo: todo, indexPath: selectedIndexPath) {
+                    
+                    // Aggiornamento dati di una cella che e' stata cliccata e non ha cambiato stato
+                    tableView.reloadRows(at: [selectedIndexPath], with: .none)
+                } else {
+                    
+                    // Aggiornamento visualizzazione complessiva delle celle
+                    tableView.reloadData()
+                }
+
             // Aggiunta
             } else {
                 
                 print("Nuova cella / riga")
                 
-                let newIndexPath = IndexPath(row: TodosManager.sharedInstance.todos.count, section: 0)
+                // Vedo se il Todo lo sto aggiungendo già completato o meno
+                let intSection = todo.blnTodoSwitch ? 1 : 0
+                
+                let newIndexPath = IndexPath(row: TodosManager.sharedInstance.getCount(todo: todo), section: intSection)
                 
                 // Aggiunta dei dati in fondo all'array "todos"
                 TodosManager.sharedInstance.addTodo(todo: todo)
@@ -144,8 +177,10 @@ class TodoTableViewController: UITableViewController {
         
         if editingStyle == .delete {
             
+            let boolInt = BoolInt()
+            
             // Devo eliminare anche l'oggetto cancellato dal mio array oltre che dalla tabella
-            TodosManager.sharedInstance.removeTodo(intPosition: indexPath.row)
+            TodosManager.sharedInstance.removeTodo(blnCompleted: boolInt.blnValue(intValue: indexPath.section), intPosition: indexPath.row)
             
             // Delete the row from the data source
             tableView.deleteRows(at: [indexPath], with: .fade)
@@ -194,10 +229,10 @@ class TodoTableViewController: UITableViewController {
             
             let selectedTodoCell = sender as! TodoTableViewCell
             
-            let indexPath = tableView.indexPath(for: selectedTodoCell)
+            let indexPath = tableView.indexPath(for: selectedTodoCell)!
             
-            // estraggo l'oggetto dall'array dei todos
-            let selectedTodo = TodosManager.sharedInstance.todos[indexPath!.row]
+            // Mi serve il todo della stessa posizione indicata da indexPath
+            let selectedTodo = TodosManager.sharedInstance.getTodo(indexPath: indexPath)!
             
             // identifico il controller di destinazione
             let todoController = segue.destination as? TodoViewController
